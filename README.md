@@ -4,6 +4,7 @@ Sample project for a Kotlin build error when using flavors and instrumentation t
 ## Reproduction Scenario
 
 1. Checkout
+2. Switch to build variant `flavor1Debug`
 2. Run the instrumentation tests
 
 ## Failure
