@@ -1,5 +1,5 @@
 # KotlinMultiFlavorError
-Sample project for a Kotlin build error when using flavors and instrumentation tests
+Sample project for a Kotlin build error when using flavors and instrumentation tests. See [KT-7065](https://youtrack.jetbrains.com/issue/KT-7065 "KT-7065").
 
 ## Reproduction Scenario
 
