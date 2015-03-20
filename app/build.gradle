@@ -1,0 +1,73 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'http://download.crashlytics.com/maven' }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:0.11.91"
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.0"
+
+    defaultConfig {
+        applicationId "at.tschillo.kotlinmultiflavorerror"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+
+        flavor1 {
+            applicationId 'at.tschillo.kotlinmultiflavorerror'
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs += ['src/main/kotlin']
+        }
+        flavor1 {
+            java.srcDirs += ['src/flavor1/kotlin']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'org.jetbrains.kotlin:kotlin-stdlib:0.11.91'
+}
+
+/**
+ * Uncomment this to Repair the instrumentation tests.
+ *
+ * This is necessary to prevent Kotlin files in the flavor folders from being included in the test app code,
+ * which results in an IllegalAccessException. Unfortunately that means for now we can't use any Kotlin code in
+ * instrumentation tests.
+ */
+//task disableKotlin << {
+//    def allKotlin = project.tasks.findAll {
+//        it.name.endsWith('TestKotlin')
+//    }
+//    println '##############################################################'
+//    allKotlin.each { task ->
+//        println sources
+//        println 'Disabling task: ' + task.name
+//        task.onlyIf { false }
+//    }
+//    println '##############################################################'
+//}
+//
+//preBuild.dependsOn disableKotlin
